@@ -1,0 +1,45 @@
+﻿<Window x:Class="LuaSTGEditorSharp.Windows.AboutNodeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LuaSTGEditorSharp.Windows"
+        mc:Ignorable="d"
+        Title="Help Window"
+        Height="639.333"
+        Width="1000.667"
+        ResizeMode="NoResize">
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
+    <Grid>
+        <TabControl HorizontalAlignment="Left" Height="591" Margin="10,10,0,0" VerticalAlignment="Top" Width="974">
+            <TabItem x:Name="Abouttab" Header="About">
+                <Grid>
+                    <Image Height="198" Margin="210,10,210,165" Width="348" Source="SplashScreen.png" StretchDirection="DownOnly" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,351,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="150" Width="948">
+                        LuaSTG Sharp Editor © czh098tom (Github) (<Hyperlink NavigateUri="https://github.com/czh098tom/LuaSTG-Editor-Sharp">https://github.com/czh098tom/LuaSTG-Editor-Sharp</Hyperlink>)
+                        <LineBreak/>
+                        LuaSTG Sharp Editor X © zinoLath &amp; RyannThi (Github) &amp; Rül Hölos (<Hyperlink NavigateUri="https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X">https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X</Hyperlink>)
+                        <LineBreak/><LineBreak/>
+                        LuaSTG Editor Sharp X is a fork of the original LuaSTG Editor Sharp editor aimed towards improving the original with new functions, functionalities, and ease of support for LuaSTG ExPlus, -x, Sub and Evo.
+                        <LineBreak/><LineBreak/>
+                        Please check the <Hyperlink NavigateUri="https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/wiki">wiki</Hyperlink> for more informations on how to use Sharp-X.
+                        <LineBreak/>
+                        There is also the <Hyperlink NavigateUri="https://luastgen.miraheze.org/wiki/Main_Page">English LuaSTG wiki</Hyperlink> you can also visit for more information about LuaSTG in general.
+                    </TextBlock>
+                    <Image x:Name="rulholos" HorizontalAlignment="Left" Height="82" Margin="202,156,0,0" VerticalAlignment="Top" Width="76" Source="rulpfp.png"/>
+                    <Image x:Name="zinoimg" HorizontalAlignment="Left" Height="82" Margin="115,115,0,0" VerticalAlignment="Top" Width="76" Source="zinopfp.png"/>
+                    <Image x:Name="ryannimg" HorizontalAlignment="Left" Height="82" Margin="115,202,0,0" VerticalAlignment="Top" Width="76" Source="ryannthipfp.png"/>
+                    <Image x:Name="tomimg" HorizontalAlignment="Left" Height="82" Margin="782,166,0,0" VerticalAlignment="Top" Width="76" Source="tompfp.png"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="Pageink" Header="Help" Margin="-2,-2,-2,0">
+                <Grid Margin="0,0,0,-1">
+                    <WebBrowser HorizontalAlignment="Left" Height="564" VerticalAlignment="Top" Width="968" Source="https://sharp-x-team.github.io/LuaSTG-Editor-Sharp-X/"/>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>

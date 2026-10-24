@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LuaSTGEditorSharp.EditorData.Node
+{
+    class RenderAlikeTypes : ITypeEnumerable
+    {
+        private static readonly Type[] types = { typeof(Render.OnRender), typeof(Object.BGOnFrame), typeof(Object.BackgroundInit), typeof(Render.BGOnRender), typeof(Bullet.PlayerBulletRender), typeof(Data.Function), typeof(Render.ItemOnRender) };
+
+        public IEnumerator<Type> GetEnumerator()
+        {
+            foreach (Type t in types)
+            {
+                yield return t;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+    }
+}

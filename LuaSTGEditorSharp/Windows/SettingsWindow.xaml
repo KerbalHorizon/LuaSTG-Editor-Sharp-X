@@ -1,0 +1,179 @@
+﻿<Window x:Name="window" x:Class="LuaSTGEditorSharp.Windows.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LuaSTGEditorSharp.Windows"
+        mc:Ignorable="d"
+        Title="Settings"
+        Height="498.433"
+        Width="700.178"
+        ResizeMode="NoResize"
+        Closing="Window_Closing">
+    <!--<Window.Resources>
+        <ResourceDictionary x:Name="ThemeDictionaryRes"/>
+    </Window.Resources>-->
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
+    <Window.Resources>
+        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Padding" Value="5,0"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+            <Button Content="OK" Margin="5,5" Height="32" Width="96" Click="ButtonOK_Click"/>
+            <Button Content="Cancel" Margin="5,5" Height="32" Width="96" Click="ButtonCancel_Click"/>
+            <Button Content="Apply" Margin="5,5" Height="32" Width="96" Click="ButtonApply_Click"/>
+        </StackPanel>
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Padding="0">
+            <TabItem x:Name="GeneralTab" Header="General">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="83*"/>
+                        <ColumnDefinition Width="612*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Register .lstges File Extension" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="650" Height="30" Click="ButtonRegisterExt_Click" Grid.ColumnSpan="2"/>
+                    <CheckBox Content="Ignore Wrong THLib Messages" HorizontalAlignment="Left" Height="26" Margin="10,50,0,0" VerticalAlignment="Top" Width="250" IsChecked="{Binding IgnoreTHLibWarn, ElementName=window}" Grid.ColumnSpan="2"/>
+
+                    <Label Content="Editor Color Theme" HorizontalAlignment="Left" Margin="10,80,0,0"
+                           VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2" Height="26"/>
+                    <ComboBox IsEditable="True" ItemsSource="{Binding ThemeArray, ElementName=window}"
+                              HorizontalAlignment="Left" Height="26" Margin="50,80,0,0" VerticalAlignment="Top"
+                              Width="160" Grid.Column="2"
+                              Text="{Binding CurrentTheme, ElementName=window}"/>
+                    <Label Content="(Require restarting the editor)" HorizontalAlignment="Left" Margin="220,80,0,0"
+                           VerticalAlignment="Top" Width="333" Grid.Column="2" Height="26"/>
+
+                    <CheckBox Content="Check for updates on startup (Require restarting the editor)" HorizontalAlignment="Left" Height="26"
+                              Margin="10,120,0,0" VerticalAlignment="Top" Width="350"
+                              Grid.ColumnSpan="2"
+                              IsChecked="{Binding CheckUpdateAtLaunch, ElementName=window}"/>
+
+                    <CheckBox Content="Use Discord Rich Presence (Require restarting the editor)" HorizontalAlignment="Left" Height="26"
+                              Margin="10,160,0,0" VerticalAlignment="Top" Width="350"
+                              Grid.ColumnSpan="2"
+                              IsChecked="{Binding UseDiscordRpc, ElementName=window}"/>
+
+                    <CheckBox Content="Allow downloading remote templates (New File Window)" HorizontalAlignment="Left" Height="26"
+                              Margin="10,200,0,0" VerticalAlignment="Top" Width="350"
+                              Grid.ColumnSpan="2"
+                              IsChecked="{Binding UseRemoteTemplates, ElementName=window}"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="CompilerTab" Header="Compiler">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="131*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="BatchPackingCheck" Content="Use Batch Packing" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="669" Height="26" 
+                              IsChecked="{Binding BatchPacking, ElementName=window}" Grid.ColumnSpan="3"/>
+                    <Label Content="Zip Executable Path" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="3"/>
+                    <Label Content="LuaSTG Executable Path" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="3"/>
+                    <Label Content="Temp Path" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="3"/>
+                    <TextBox HorizontalAlignment="Left" Height="26" Margin="138,33,0,0" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="450" 
+                             Text="{Binding ZipExecutablePath, ElementName=window}" IsEnabled="{Binding IsChecked, ElementName=BatchPackingCheck}" Grid.Column="2"/>
+                    <TextBox HorizontalAlignment="Left" Height="26" Margin="138,64,0,0" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="450" 
+                             Text="{Binding LuaSTGExecutablePath, ElementName=window}" Grid.Column="2"/>
+                    <TextBox HorizontalAlignment="Left" Height="26" Margin="138,127,0,0" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="450" 
+                             Text="{Binding TempPath, ElementName=window}" Grid.Column="2"/>
+                    <Label Content="Target Version:" HorizontalAlignment="Left" Margin="10,96,0,0" VerticalAlignment="Top" Width="150" Height="26" Grid.ColumnSpan="3"/>
+                    <Label Content="{Binding TargetVersion, ElementName=window}" HorizontalAlignment="Left" Margin="138,96,0,0" VerticalAlignment="Top" Width="501" Height="26" Grid.Column="2"/>
+                    <Button Content="..." HorizontalAlignment="Left" Height="26" Margin="593,34,0,0" VerticalAlignment="Top" Width="26" Click="ButtonZipExecutablePath_Click" 
+                            IsEnabled="{Binding IsChecked, ElementName=BatchPackingCheck}" Grid.Column="2"/>
+                    <Button Content="..." HorizontalAlignment="Left" Height="26" Margin="593,65,0,0" VerticalAlignment="Top" Width="26" Click="ButtonLuaSTGExecutablePath_Click" Grid.Column="2"/>
+                    <CheckBox Content="Update Thlib before running" HorizontalAlignment="Left" Height="26" Margin="10,158,0,0" VerticalAlignment="Top" Width="250" 
+                              IsChecked="{Binding DebugUpdateLib, ElementName=window}" Grid.ColumnSpan="3"/>
+                    <CheckBox Content="Save project before running" HorizontalAlignment="Left" Height="26" Margin="10,189,0,0" VerticalAlignment="Top" Width="250" 
+                              IsChecked="{Binding DebugSaveProj, ElementName=window}" Grid.ColumnSpan="3"/>
+                    <CheckBox Content="Pack project" HorizontalAlignment="Left" Height="26" Margin="10,220,0,0" VerticalAlignment="Top" Width="205" 
+                              IsChecked="{Binding PackProj, ElementName=window}" Grid.ColumnSpan="3"/>
+                    <CheckBox Content="Use MD5 resource check in packing" HorizontalAlignment="Left" Height="26" Margin="10,251,0,0" VerticalAlignment="Top" Width="250" 
+                              IsChecked="{Binding MD5Check, ElementName=window}" Grid.ColumnSpan="3"/>
+                    <Label Content="Editor Output File Name" HorizontalAlignment="Left" Margin="10,280,0,0" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="3"/>
+                    <TextBox HorizontalAlignment="Left" Height="26" Margin="138,280,0,0" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="450" 
+                             Text="{Binding EditorOutputName, ElementName=window}" Grid.Column="2"/>
+                    <CheckBox x:Name="FolderPackingCheck" Content="Use Folder Packing" HorizontalAlignment="Left" Margin="10,311,0,0" VerticalAlignment="Top" Width="669" Height="26" 
+                        IsChecked="{Binding UseFolderPacking, ElementName=window}" Checked="FolderPackingCheck_Checked" Grid.ColumnSpan="3"/>
+                    <!--<Label Content="Selected Toolbox (Require restarting the editor)" HorizontalAlignment="Left" Margin="10,341,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
+                    <ComboBox IsEditable="True" Text="{Binding SelectedToolbox, ElementName=window}"
+                              HorizontalAlignment="Left" Height="26" Margin="240,340,0,0" VerticalAlignment="Top" Width="161" Grid.Column="3"
+                              x:Name="ToolboxSelector">
+                        <ComboBoxItem Content="THlib"/>
+                        <ComboBoxItem Content="Berry"/>
+                    </ComboBox>-->
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="DebugTab" Header="Debug">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="11*"/>
+                        <ColumnDefinition Width="75*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Resolution" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="84" Grid.ColumnSpan="2"/>
+                    <ComboBox Text="{Binding CombinedResolution, ElementName=window}" IsEditable="True"
+                              HorizontalAlignment="Left" Height="26" Margin="10.9,10,0,0" VerticalAlignment="Top" Width="161" Grid.Column="1">
+                        <ComboBoxItem Content="640x480"/>
+                        <ComboBoxItem Content="800x600"/>
+                        <ComboBoxItem Content="960x720"/>
+                        <ComboBoxItem Content="1024x768"/>
+                        <ComboBoxItem Content="1280x960"/>
+                    </ComboBox>
+                    <CheckBox Content="Windowed" HorizontalAlignment="Left" Height="26" Margin="10,41,0,0" VerticalAlignment="Top" Width="250" IsChecked="{Binding DebugWindowed, ElementName=window}" Grid.ColumnSpan="2"/>
+                    <CheckBox Content="Cheat" HorizontalAlignment="Left" Height="26" Margin="10,72,0,0" VerticalAlignment="Top" Width="250" IsChecked="{Binding DebugCheat, ElementName=window}" Grid.ColumnSpan="2"/>
+                    <CheckBox Content="Dynamic debug reporting (unstable)" 
+                              HorizontalAlignment="Left" Height="26" Margin="10,103,0,0" VerticalAlignment="Top" Width="250" 
+                              IsChecked="{Binding DynamicDebugReporting, ElementName=window}" Grid.ColumnSpan="2"/>
+                    <CheckBox Content="Enable log window (LuaSTG Sub only)" 
+                        HorizontalAlignment="Left" Height="26" Margin="10,134,0,0" VerticalAlignment="Top" Width="250" 
+                        IsChecked="{Binding SubLogWindow, ElementName=window}" Grid.ColumnSpan="2"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="EditorTab" Header="Editor">
+                <Grid Height="500">
+                    <Label Content="Default Author Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="150"/>
+                    <TextBox HorizontalAlignment="Left" Height="26" Margin="178,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="470" Text="{Binding AuthorName, ElementName=window}"/>
+                    <CheckBox Content="Move to new nodes Automatically" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="275" IsChecked="{Binding AutoMoveToNew, ElementName=window}" Margin="10,50,0,0"/>
+                    <CheckBox Content="Auto Save Projects" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="275" IsChecked="{Binding UseAutoSave, ElementName=window}" Margin="10,80,0,0"/>
+                    <Label Content="Autosave interval (in minutes)" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="170"/>
+                    <TextBox PreviewTextInput="MaskNumericInput" DataObject.Pasting="MaskNumericPaste" Text="{Binding AutoSaveTimer, ElementName=window}" Height="26" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="178,110,0,0"/>
+                    <Label Content="(Require restarting the editor)" HorizontalAlignment="Left" Margin="280,110,0,0" VerticalAlignment="Top" Width="170"/>
+                    <GroupBox Header="Indentation" Margin="10,170,10,228" Height="150"
+                              VerticalAlignment="Top">
+                        <StackPanel Orientation="Vertical" Margin="10,10,10,10">
+                            <RadioButton Height="26" IsChecked="{Binding SpaceIndentation,ElementName=window}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Space"/>
+                                    <TextBlock Grid.Column="1" Margin="10,0,10,0" Text="Count:"/>
+                                    <TextBox Grid.Column="2" Margin="0,0,-148,-10.8" Text="{Binding IndentationSpaceLength,ElementName=window}"
+                                             IsEnabled="{Binding IsChecked, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type RadioButton}}}"/>
+                                </Grid>
+                            </RadioButton>
+                            <RadioButton Height="26" Content="Tab" IsChecked="{Binding TabIndentation,ElementName=window}"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <!--<Label Content="Change Editor Theme" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Grid.ColumnSpan="1"/>
+                    <ComboBox IsEditable="True" Text="{Binding CurrentEditorTheme, ElementName=window}"
+                              HorizontalAlignment="Left" Height="26" Margin="140,190,0,0" VerticalAlignment="Top" Width="161" Grid.Column="1"
+                              x:Name="ThemeBox" SelectionChanged="ThemeBox_SelectionChanged">
+                        <ComboBoxItem Content="Light"/>
+                        <ComboBoxItem Content="ColourfulLight"/>
+                        <ComboBoxItem Content="Dark"/>
+                        <ComboBoxItem Content="ColourfulDark"/>
+                    </ComboBox>-->
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

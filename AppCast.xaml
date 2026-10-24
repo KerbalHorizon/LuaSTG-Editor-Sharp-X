@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+	<channel>
+		<title>LuaSTG Editor Sharp X</title>
+		<link>https://raw.githubusercontent.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/main/AppCast.xaml</link>
+		<description>LuaSTG Editor Sharp X is a clone/fork of LuaSTG Editor Sharp aimed towards improving the original with new functions and altered behaviour.</description>
+		<language>en</language>
+		<item>
+			<title>Version 0.78.3</title>
+			<sparkle:releaseNotesLink>
+				https://raw.githubusercontent.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/main/LuaSTGEditorSharp/Changelogs/0.78.3_changelog.md
+			</sparkle:releaseNotesLink>
+			<pubDate>Thu, 7 Jul 2026 20:06:00 +0010</pubDate>
+			<enclosure url="https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/releases/download/0.78.3/LuaSTG.Editor.Sharp.X.v0.78.3.exe"
+                       sparkle:version="0.78.3"
+                       sparkle:os="windows"
+                       type="application/octet-stream"/>
+		</item>
+		<item>
+			<title>Version 0.78.2</title>
+			<sparkle:releaseNotesLink>
+				https://raw.githubusercontent.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/main/LuaSTGEditorSharp/Changelogs/0.78.2_changelog.md
+			</sparkle:releaseNotesLink>
+			<pubDate>Thu, 9 Dec 2025 00:00:00 +0000</pubDate>
+			<enclosure url="https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/releases/download/0.78.2/LuaSTG.Editor.Sharp.X.v0.78.2.exe"
+                       sparkle:version="0.78.2"
+                       sparkle:os="windows"
+                       type="application/octet-stream"/>
+		</item>
+		<item>
+			<title>Version 0.78.1</title>
+			<sparkle:releaseNotesLink>
+				https://raw.githubusercontent.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/main/LuaSTGEditorSharp/Changelogs/0.78.1_changelog.md
+			</sparkle:releaseNotesLink>
+			<pubDate>Thu, 9 Dec 2025 00:00:00 +0000</pubDate>
+			<enclosure url="https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/releases/download/0.78.1/LuaSTG.Editor.Sharp.X.v0.78.1.exe"
+                       sparkle:version="0.78.1"
+                       sparkle:os="windows"
+                       type="application/octet-stream"/>
+		</item>
+		<item>
+			<title>Version 0.78.0</title>
+			<sparkle:releaseNotesLink>
+				https://raw.githubusercontent.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/main/LuaSTGEditorSharp/Changelogs/0.78.0_changelog.md
+			</sparkle:releaseNotesLink>
+			<pubDate>Sun, 4 May 2025 00:00:00 +0000</pubDate>
+			<enclosure url="https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/releases/download/0.78.0/LuaSTG.Editor.Sharp.X.v0.78.0.exe"
+                       sparkle:version="0.78.0"
+                       sparkle:os="windows"
+                       type="application/octet-stream"/>
+		</item>
+		<item>
+			<title>Version 0.77.2</title>
+			<sparkle:releaseNotesLink>
+				https://raw.githubusercontent.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/main/LuaSTGEditorSharp/Changelogs/0.77.2_changelog.md
+			</sparkle:releaseNotesLink>
+			<pubDate>Mon, 13 Jan 2025 00:00:00 +0000</pubDate>
+			<enclosure url="https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/releases/download/0.77.2/LuaSTG.Editor.Sharp.X.v0.77.2.exe"
+                       sparkle:version="0.77.2"
+                       sparkle:os="windows"
+                       type="application/octet-stream"/>
+		</item>
+		<item>
+			<title>Version 0.77.1</title>
+			<sparkle:releaseNotesLink>
+				https://raw.githubusercontent.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/main/LuaSTGEditorSharp/Changelogs/0.77.1_changelog.md
+			</sparkle:releaseNotesLink>
+			<pubDate>Thu, 10 Oct 2024 00:00:00 +0000</pubDate>
+			<enclosure url="https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/releases/download/0.77.1/LuaSTG.Editor.Sharp.X.v0.77.1.exe"
+                       sparkle:version="0.77.1"
+                       sparkle:os="windows"
+                       type="application/octet-stream"/>
+		</item>
+		<item>
+			<title>Version 0.77.0</title>
+			<sparkle:releaseNotesLink>
+				https://raw.githubusercontent.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/main/LuaSTGEditorSharp/Changelogs/0.77.0_changelog.md
+			</sparkle:releaseNotesLink>
+			<pubDate>Thu, 25 Sep 2024 00:00:00 +0000</pubDate>
+			<enclosure url="https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/releases/download/0.77.0/LuaSTG.Editor.Sharp.X.v0.77.0.exe"
+                       sparkle:version="0.77.0"
+                       sparkle:os="windows"
+                       type="application/octet-stream"/>
+		</item>
+		<item>
+			<title>Version 0.76.0</title>
+			<sparkle:releaseNotesLink>
+				https://raw.githubusercontent.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/main/LuaSTGEditorSharp/Changelogs/0.76.0_changelog.md
+			</sparkle:releaseNotesLink>
+			<pubDate>Thu, 18 Jul 2024 06:27:00 +0000</pubDate>
+			<enclosure url="https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/releases/download/0.76.0/LuaSTG.Editor.Sharp.X.v0.76.0.exe"
+                       sparkle:version="0.76.0"
+                       sparkle:os="windows"
+                       type="application/octet-stream"/>
+		</item>
+		<item>
+			<title>Version 0.75.2</title>
+			<sparkle:releaseNotesLink>
+				https://raw.githubusercontent.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/main/LuaSTGEditorSharp/Update%20Log.txt
+			</sparkle:releaseNotesLink>
+			<pubDate>Sun, 7 Jul 2024 16:45:00 +0000</pubDate>
+			<enclosure url="https://github.com/Sharp-X-Team/LuaSTG-Editor-Sharp-X/releases/download/0.75.2/LuaSTG.Editor.Sharp.X.v0.75.2.exe"
+                       sparkle:version="0.75.2"
+                       sparkle:os="windows"
+                       type="application/octet-stream"/>
+		</item>
+	</channel>
+</rss>
