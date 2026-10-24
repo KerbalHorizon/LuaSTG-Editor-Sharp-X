@@ -17,6 +17,16 @@ namespace LuaSTGEditorSharp
     {
         public PluginEntry() : base()
         {
+            // Install the BridgeDeps resolver before anything else can touch Serilog/Newtonsoft.
+            // The bridge assembly itself may fail to load; never let that stop the ExPlus plugin.
+            try
+            {
+                LuaSTGMcpBridge.BridgeBootstrap.EnsureInstalled();
+            }
+            catch (Exception)
+            {
+            }
+
             NodeTypeCache = new NodeTypeCache();
             Execution = new LSTGEXPlusExecution();
 

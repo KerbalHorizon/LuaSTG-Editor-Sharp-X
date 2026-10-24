@@ -7,7 +7,6 @@ using LuaSTGMcpBridge.Editor;
 using LuaSTGMcpBridge.Protocol;
 using LuaSTGMcpBridge.Threading;
 using Newtonsoft.Json.Linq;
-using Serilog;
 
 namespace LuaSTGMcpBridge.Actions
 {
@@ -37,6 +36,9 @@ namespace LuaSTGMcpBridge.Actions
         /// <returns>The response object.</returns>
         public static JObject GetTree(JObject request)
         {
+            string[] missing = EditorCompat.GetMissing("get_tree");
+            if (missing.Length > 0) return EditorCompat.Unsupported("get_tree", missing);
+
             return Guard("get_tree", () => GetTreeCore(request));
         }
 
@@ -91,6 +93,9 @@ namespace LuaSTGMcpBridge.Actions
         /// <returns>The response object.</returns>
         public static JObject SetAttribute(JObject request)
         {
+            string[] missing = EditorCompat.GetMissing("set_attribute");
+            if (missing.Length > 0) return EditorCompat.Unsupported("set_attribute", missing);
+
             return Guard("set_attribute", () => SetAttributeCore(request));
         }
 
@@ -189,6 +194,9 @@ namespace LuaSTGMcpBridge.Actions
         /// <returns>The response object.</returns>
         public static JObject InsertNode(JObject request)
         {
+            string[] missing = EditorCompat.GetMissing("insert_node");
+            if (missing.Length > 0) return EditorCompat.Unsupported("insert_node", missing);
+
             return Guard("insert_node", () => InsertNodeCore(request));
         }
 
@@ -332,6 +340,9 @@ namespace LuaSTGMcpBridge.Actions
         /// <returns>The response object.</returns>
         public static JObject DeleteNode(JObject request)
         {
+            string[] missing = EditorCompat.GetMissing("delete_node");
+            if (missing.Length > 0) return EditorCompat.Unsupported("delete_node", missing);
+
             return Guard("delete_node", () => DeleteNodeCore(request));
         }
 
@@ -452,7 +463,7 @@ namespace LuaSTGMcpBridge.Actions
             {
                 try
                 {
-                    Log.ForContext("Tag", "McpTreeActions")
+                    BridgeFileLog.CreateLogger("McpTreeActions")
                         .Error(ex, "MCP bridge action {Action} failed.", action);
                 }
                 catch (Exception)

@@ -117,3 +117,6 @@ node_modules/
 
 # User-specific editor settings
 /LuaSTGEditorSharp/User.config
+
+# Release packages: built locally and uploaded as GitHub Release assets, never committed
+/dist/

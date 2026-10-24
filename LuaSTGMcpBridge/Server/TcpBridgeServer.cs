@@ -28,6 +28,8 @@ namespace LuaSTGMcpBridge.Server
     {
         private const int BufferSize = 4096;
 
+        private const string InternalErrorLiteral = "{\"status\":\"error\",\"error\":\"internal bridge error\"}";
+
         private static readonly Encoding Utf8NoBom = new UTF8Encoding(false);
 
         private readonly object syncRoot = new object();
@@ -35,7 +37,7 @@ namespace LuaSTGMcpBridge.Server
         private readonly int port;
         private readonly HashSet<TcpClient> clients = new HashSet<TcpClient>();
 
-        private ILogger logger = Log.ForContext("Tag", "McpBridgeServer");
+        private ILogger logger = BridgeFileLog.CreateLogger("McpBridgeServer");
         private TcpListener listener;
         private CancellationTokenSource cancellation;
         private Task acceptLoop;
@@ -80,7 +82,7 @@ namespace LuaSTGMcpBridge.Server
         public ILogger Logger
         {
             get { return logger; }
-            set { logger = value ?? Log.ForContext("Tag", "McpBridgeServer"); }
+            set { logger = value ?? BridgeFileLog.CreateLogger("McpBridgeServer"); }
         }
 
         /// <summary>
@@ -294,14 +296,47 @@ namespace LuaSTGMcpBridge.Server
                 string error;
 
                 if (!BridgeProtocol.TryParse(line, out request, out error))
-                    return BridgeProtocol.Encode(BridgeProtocol.Failure(error, "bad_request"));
+                    return SafeError(error, "bad_request");
 
-                return BridgeProtocol.Encode(router.Dispatch(request));
+                return EncodeOrLiteral(router.Dispatch(request));
             }
             catch (Exception ex)
             {
                 logger.Error("MCP bridge request failed: {Message}", ex.Message);
-                return BridgeProtocol.Encode(BridgeProtocol.Failure(ex.Message));
+                return SafeError(ex.Message, "error");
+            }
+        }
+
+        /// <summary>
+        /// Encodes a response, falling back to a hand written JSON literal.
+        /// </summary>
+        /// <remarks>
+        /// On the v0.78.3 host a <see cref="MissingMethodException"/> thrown inside
+        /// <see cref="BridgeProtocol.Encode"/> escaped the catch block below, because the error
+        /// path serialised its own response with the same broken call. The client then saw a
+        /// dropped connection instead of an error message. This literal depends on no library.
+        /// </remarks>
+        private static string EncodeOrLiteral(JObject payload)
+        {
+            try
+            {
+                return BridgeProtocol.Encode(payload);
+            }
+            catch (Exception)
+            {
+                return InternalErrorLiteral;
+            }
+        }
+
+        private static string SafeError(string message, string code)
+        {
+            try
+            {
+                return BridgeProtocol.Encode(BridgeProtocol.Failure(message, code));
+            }
+            catch (Exception)
+            {
+                return InternalErrorLiteral;
             }
         }
     }

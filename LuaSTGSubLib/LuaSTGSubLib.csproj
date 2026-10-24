@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -64,6 +64,11 @@
     <ProjectReference Include="..\LuaSTGEditorSharp.Core\LuaSTGEditorSharp.Core.csproj">
       <Project>{bd1ca1e6-9e34-4098-ae65-922f23670f75}</Project>
       <Name>LuaSTGEditorSharp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LuaSTGMcpBridge\LuaSTGMcpBridge.csproj">
+      <Project>{4e9a1c7b-2f63-4b58-9d21-7c0a5e3b8d14}</Project>
+      <Name>LuaSTGMcpBridge</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\LuaSTGNode.Legacy.Windows\LuaSTGNode.Legacy.Windows.csproj">
       <Project>{a1c31871-42cd-46fa-8274-0ef22ec32d63}</Project>

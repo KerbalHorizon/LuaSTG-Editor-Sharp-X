@@ -40,12 +40,14 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Serilog, Version=4.3.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.4.3.1\lib\net471\Serilog.dll</HintPath>
       <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,23 +59,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\TreeActions.cs" />
+    <Compile Include="BridgeBootstrap.cs" />
+    <Compile Include="BridgeFileLog.cs" />
     <Compile Include="BridgeHost.cs" />
     <Compile Include="Editor\EditorContext.cs" />
+    <Compile Include="Editor\EditorCompat.cs" />
     <Compile Include="Editor\NodeFactory.cs" />
     <Compile Include="Editor\NodePath.cs" />
     <Compile Include="Editor\NodeSnapshot.cs" />
     <Compile Include="Protocol\BridgeProtocol.cs" />
+    <Compile Include="Protocol\JsonCompat.cs" />
     <Compile Include="Server\BridgeRouter.cs" />
     <Compile Include="Server\TcpBridgeServer.cs" />
     <Compile Include="Threading\UiThread.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <!-- LuaSTGEditorSharp.Core is intentionally a ProjectReference and is not strong-named.
+         SpecificVersion is a compile-time flag for <Reference> items only; it would not change
+         runtime binding here. Compatibility with older host Core versions is enforced by
+         Editor\EditorCompat.cs instead of by a reference version. -->
     <ProjectReference Include="..\LuaSTGEditorSharp.Core\LuaSTGEditorSharp.Core.csproj">
       <Project>{bd1ca1e6-9e34-4098-ae65-922f23670f75}</Project>
       <Name>LuaSTGEditorSharp.Core</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BridgeDependency Include="..\packages\Serilog.4.3.1\lib\net471\Serilog.dll" />
+    <BridgeDependency Include="..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll" />
+  </ItemGroup>
+  <Target Name="CopyBridgeDependencies" AfterTargets="Build">
+    <MakeDir Directories="$(OutputPath)BridgeDeps" />
+    <Copy SourceFiles="@(BridgeDependency)"
+          DestinationFolder="$(OutputPath)BridgeDeps"
+          SkipUnchangedFiles="true" />
+  </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

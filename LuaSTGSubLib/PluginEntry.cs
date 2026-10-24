@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,8 +17,42 @@ namespace LuaSTGEditorSharp
     {
         public PluginEntry() : base()
         {
+            // Install the BridgeDeps resolver before anything else can touch Serilog/Newtonsoft.
+            // The bridge assembly itself may fail to load; never let that stop the Sub plugin.
+            try
+            {
+                LuaSTGMcpBridge.BridgeBootstrap.EnsureInstalled();
+            }
+            catch (Exception)
+            {
+            }
+
             NodeTypeCache = new NodeTypeCache();
             Execution = new LSTGSubExecution();
+
+            // v0.6.0: start the local MCP bridge (127.0.0.1:8090).
+            // BridgeHost.Start() already catches everything and reports failure by returning
+            // false; this guard only covers a type initializer failure (e.g. a Serilog version
+            // mismatch), so a broken bridge can never take the editor down with it.
+            try
+            {
+                LuaSTGMcpBridge.BridgeHost.Start();
+            }
+            catch (Exception ex)
+            {
+                // The bridge must never take the plugin, or the editor, down with it. Logging lives
+                // in the bridge assembly (BridgeLog) so this project keeps its original dependency
+                // set: on an older editor the Serilog assembly itself may be the thing that is
+                // missing, and a throwing logger would defeat this catch.
+                try
+                {
+                    LuaSTGMcpBridge.BridgeLog.StartupFailure(ex);
+                }
+                catch (Exception)
+                {
+                    // The bridge assembly itself may be the thing that failed to load.
+                }
+            }
         }
 
         public override string NodeAssemblyName => "LuaSTGNode.Legacy";

@@ -1,6 +1,5 @@
 using System;
 using System.Globalization;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace LuaSTGMcpBridge.Protocol
@@ -20,13 +19,6 @@ namespace LuaSTGMcpBridge.Protocol
         /// </summary>
         public const string LineTerminator = "\n";
 
-        private static readonly JsonLoadSettings LoadSettings = new JsonLoadSettings
-        {
-            CommentHandling = CommentHandling.Ignore,
-            LineInfoHandling = LineInfoHandling.Ignore,
-            DuplicatePropertyNameHandling = DuplicatePropertyNameHandling.Replace
-        };
-
         /// <summary>
         /// Encodes a response for the wire. A single line, no indentation.
         /// </summary>
@@ -34,7 +26,7 @@ namespace LuaSTGMcpBridge.Protocol
         /// <returns>Compact JSON.</returns>
         public static string Encode(JObject payload)
         {
-            return payload == null ? "{}" : payload.ToString(Formatting.None);
+            return payload == null ? "{}" : JsonCompat.ToCompactString(payload);
         }
 
         /// <summary>
@@ -46,34 +38,7 @@ namespace LuaSTGMcpBridge.Protocol
         /// <returns><c>true</c> when <paramref name="raw"/> is a JSON object.</returns>
         public static bool TryParse(string raw, out JObject request, out string error)
         {
-            request = null;
-            error = null;
-
-            if (string.IsNullOrWhiteSpace(raw))
-            {
-                error = "empty request";
-                return false;
-            }
-
-            try
-            {
-                JToken token = JToken.Parse(raw);
-
-                if (!(token is JObject obj))
-                {
-                    error = "request must be a JSON object";
-                    return false;
-                }
-
-                // Normalise so later lookups are not surprised by a comment-infested document.
-                request = JObject.Parse(obj.ToString(Formatting.None), LoadSettings);
-                return true;
-            }
-            catch (JsonException ex)
-            {
-                error = "invalid JSON: " + ex.Message;
-                return false;
-            }
+            return JsonCompat.TryParseObject(raw, out request, out error);
         }
 
         /// <summary>

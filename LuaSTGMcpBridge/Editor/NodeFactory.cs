@@ -5,7 +5,7 @@ using System.Reflection;
 using LuaSTGEditorSharp.EditorData;
 using LuaSTGEditorSharp.EditorData.Node;
 using LuaSTGEditorSharp.Plugin;
-using Newtonsoft.Json;
+using LuaSTGMcpBridge.Protocol;
 using Newtonsoft.Json.Linq;
 
 namespace LuaSTGMcpBridge.Editor
@@ -277,9 +277,12 @@ namespace LuaSTGMcpBridge.Editor
         {
             if (token == null || token.Type == JTokenType.Null) return "";
 
+            // JValue.ToString() is the parameterless override, present in every version.
             if (token is JValue value) return value.ToString();
 
-            return token.ToString(Formatting.None);
+            // Never JToken.ToString(Formatting): that overload only exists from Newtonsoft.Json
+            // 13.0.4 on, while the editor ships an older build of the same 13.0.0.0 version.
+            return JsonCompat.ToCompactString(token);
         }
 
         private static Exception Unwrap(Exception exception)
